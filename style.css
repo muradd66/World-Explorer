@@ -582,11 +582,56 @@ circle {
     color: #444;
 }
 
+
+.theme-btn {
+    position: fixed;
+    bottom: 20px;
+    /* Aşağıdan məsafə */
+    left: 20px;
+    /* Soldan məsafə */
+    z-index: 1000;
+    /* Həmişə ən üstdə olsun */
+
+    width: 45px;
+    height: 45px;
+    background-color: #28a745;
+    /* Sənin əsas yaşıl rəngin */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    /* Üstünə gələndə azca böyüsün [cite: 2025-12-18] */
+}
+
+.theme-btn:active {
+    transform: scale(0.9);
+    /* Basanda azca kiçilsin */
+}
+
+
+
+
+
+
+
+
+
+
+
 /* ============================================================
-   FINAL RESPONSIVE RE-DESIGN (No Spagetti Code)
+   FINAL RESPONSIVE 
    ============================================================ */
 
-/* 1. TABLET (768px - 1023px) */
+
 @media (max-width: 1023px) {
     .navbar {
         padding: 15px 25px;
@@ -733,5 +778,112 @@ circle {
         align-items: center;
         margin-top: 20px;
     }
-   
+
+}
+
+.ai-status-wrapper {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.ai-status-wrapper h3 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.ai-status-wrapper p {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Dark Mode üçün */
+body.dark .ai-status-wrapper p {
+    color: #aaa;
+}
+
+
+
+body .bi-trash {
+    background-color: #faf7f7;
+    color: black;
+    transition: 0.4s
+}
+
+/* --- NORMAL (LIGHT) MODE --- */
+
+body .weather-box {
+    background-color: white;
+    color: black;
+    transition: 0.4s;
+    /* Səlis keçid */
+}
+
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+.ai-sidebar,
+.fav-sidebar,
+.country-sidebar {
+    background-color: #f8f9fa;
+}
+
+input {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+
+/* --- DARK MODE (Body-də .dark olanda aktiv olur) --- */
+
+/* 1. Ana fon və yazı */
+body.dark {
+    background-color: #121212 !important;
+    color: white !important;
+}
+
+/* 2. Bütün Sidebarlar və Navbar */
+body.dark .navbar,
+body.dark .ai-sidebar,
+body.dark .fav-sidebar,
+body.dark .country-sidebar,
+body.dark .sidebar-header,
+body.dark .fav-sidebar-header,
+body.dark .ai-sidebar-header,
+body.dark .weather-box {
+    background-color: #1e1e1e !important;
+    color: white !important;
+    border-color: #333 !important;
+}
+
+body.dark .favhead,
+body.dark .country-name,
+body.dark .aiHead {
+    color: white;
+}
+
+/* 3. Inputlar (Axtarış yerləri) */
+
+
+/* 4. Footer */
+body.dark .footer,
+body.dark .favList,
+body.dark .ai-search-container {
+    background-color: #1a1a1a !important;
+    border-top: 1px solid #333;
+}
+
+/* 5. İkonlara sadə parıltı */
+body.dark .bi-globe-americas,
+body.dark .links,
+body.dark .fav-bi,
+body.dark .bi-heart,
+body.dark .bi-heart-fill,
+body.dark .bi-x-lg,
+body.dark .ai-send-btn,
+body.dark .side-robot {
+    color: #28a745;
+    filter: drop-shadow(0 0 5px #28a745);
 }

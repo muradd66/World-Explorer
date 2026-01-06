@@ -442,7 +442,7 @@ aiBtn.addEventListener("click", () => {
     aisearchcontainer.classList.toggle("hidden")
 
     if (!aisearchcontainer.classList.contains("hidden")) {
-        aiInput.focus()//input acilan kimi ona fokuslanir 
+        aiInput.focus()
     }
 });
 
@@ -462,8 +462,8 @@ aiSendBtn.addEventListener("click", () => {
 
 
 function getAi(userText) {
-    // aiSidebar.innerHTML = "<p class='loading'>AI düşünür...</p>";
     const api_key = "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";
+    aiSidebar.classList.add("active")
 
     fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
@@ -476,21 +476,23 @@ function getAi(userText) {
             messages: [
                 {
                     role: "system",
-                    // AI-a həm formatı, həm də obyektivliyi qəti şəkildə tapşırırıq
-                    content: "You are a geography expert. Provide globally accurate facts based on official statistics. Return ONLY 'CountryName:ISO2' format, separated by commas. No intro, no chat, no regional bias."
+                    content: `You are a geography expert. 
+        1. Understand user queries in ANY language.
+        2. Return ONLY 'CountryName:ISO2' format separated by commas.
+        3. IMPORTANT: Always provide 'CountryName' in English (e.g., 'Azerbaijan', not 'Azərbaycan' or 'Rusya').
+        4. Use exactly 2-letter ISO codes (e.g., 'AZ', 'TR').
+        5. No extra text, no headers, no chat.`
                 },
                 {
                     role: "user",
-                    // İstifadəçinin sualını dinamik saxlayırıq
-                    content: `Suggest 5 globally relevant countries for the query: ${userText}`
+                    content: `Suggest countries for: ${userText}`
                 }
             ],
-            temperature: 0 // Yaradıcılığı sıfırlayırıq ki, yalnız faktları desin
+            temperature: 0.2
         })
     })
         .then(response => response.json())
         .then(data => {
-            // aiSidebar.innerHTML = "";
             let aiText = data.choices[0].message.content;
             console.log("AI-dan gələn xam mətn:", aiText);
 
@@ -498,13 +500,23 @@ function getAi(userText) {
             let countryList = aiText.split(",")
                 .map(item => {
                     let cleanItem = item.trim();
-                    // Əgər başında "1. " kimi rəqəm varsa, onu kəsib atırıq (ilk 3 hərfi yoxla)
-                    if (cleanItem.includes(". ")) {
-                        cleanItem = cleanItem.split(". ")[1];
-                    }
+                    // Modern və daha dəqiq rəqəm təmizləmə (1., 1), 2. və s. üçün)
+                    cleanItem = cleanItem.replace(/^\d+[\.\)]\s*/, "");
                     return cleanItem;
                 })
-                .filter(item => item && item.includes(":"));
+                .filter(item => {
+                    const parts = item.split(":");
+                    if (parts.length !== 2) return false;
+
+                    const name = parts[0].trim();
+                    const code = parts[1].trim();
+
+                    // Şəkildəki problemi həll edən əsas hissə: 
+                    // Başlıqları və yanlış ISO kodlarını (CountryName, ISO2, və s.) ləğv edirik
+                    const isHeader = name.toLowerCase().includes("countryname") || name.toLowerCase().includes("iso2");
+
+                    return !isHeader && code.length === 2;
+                });
             renderAi(countryList);
         })
 
@@ -530,6 +542,24 @@ function renderAi(list) {
     aiList.innerHTML = ""
     aiSidebar.classList.add("active")
 
+
+    if (!list || list.length === 0) {
+        const statusWrapper = document.createElement("div");
+        statusWrapper.classList.add("ai-status-wrapper");
+
+        const title = document.createElement("h3");
+        title.innerText = "Təəssüf, nəticə tapılmadı";
+
+        const description = document.createElement("p");
+        description.innerText = "Daha ətraflı yazmağa çalışın.";
+
+        statusWrapper.append(title, description);
+        aiList.append(statusWrapper);
+        return;
+    }
+
+
+
     list.forEach((item) => {
         let parts = item.split(":")
         let partName = parts[0]
@@ -551,12 +581,12 @@ function renderAi(list) {
             countryInput.value = partName.trim()
             searchBtn.click()
             aiSidebar.classList.remove("active")
+            aiInput.value = ""
         })
         aiList.append(newDiv)
     })
 }
 
-// const closeAiBtn = document.querySelector(".closeAiBtn");
 
 closeAiBtn.addEventListener("click", () => {
     aiSidebar.classList.remove("active");
@@ -564,15 +594,37 @@ closeAiBtn.addEventListener("click", () => {
 });
 
 
-// function replaceaisearch() {
-//     const aiSahəsi = document.querySelector('.ai-search-container');
-//     const xəritə = document.querySelector('.map-container');
 
-//     if (window.innerWidth <= 767) {
-//         // AI sahəsini xəritənin tam sonuna əlavə edirik
-//         xəritə.append(aiSahəsi);
-//     }
-// }
 
-// window.addEventListener('load', replaceaisearch);
-// window.addEventListener('resize', replaceaisearch);
+// 1. Düyməni və ikonunu sənin verdiyin klaslara görə seçirik
+const themeBtn = document.querySelector(".theme-btn.toggle");
+const themeIcon = document.querySelector(".theme-icon");
+
+// 2. Səhifə yüklənəndə yaddaşı (localStorage) yoxlayırıq
+const savedTheme = localStorage.getItem("theme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+    // İkonu günəş (sun) ilə əvəzləyirik
+    if (themeIcon) {
+        themeIcon.classList.replace("bi-moon-stars", "bi-sun-fill");
+    }
+}
+
+// 3. Düyməyə basanda rejimi dəyişirik
+themeBtn.addEventListener("click", () => {
+    // Body-yə 'dark' klasını əlavə edirik (varsa silirik)
+    document.body.classList.toggle("dark");
+    
+    const isDark = document.body.classList.contains("dark");
+
+    // 4. Seçimi yaddaşa yazırıq
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    // 5. İkonun görünüşünü dəyişirik
+    if (isDark) {
+        themeIcon.classList.replace("bi-moon-stars", "bi-sun-fill");
+    } else {
+        themeIcon.classList.replace("bi-sun-fill", "bi-moon-stars");
+    }
+});
