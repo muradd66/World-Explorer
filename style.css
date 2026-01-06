@@ -117,7 +117,7 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
-    transition:  0.4s ease;
+    transition: 0.4s ease;
 }
 
 .map-wrapper {
@@ -447,7 +447,7 @@ circle {
     padding: 15px;
     background: #f8f9fa;
     border-bottom: 1px solid #eee;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
 }
 
 .ai-search-container.hidden {
@@ -460,7 +460,7 @@ circle {
     max-width: 600px;
     background: white;
     border: 2px solid #28a745;
-    border-radius: 50px; 
+    border-radius: 50px;
     padding: 5px 15px;
     overflow: hidden;
 }
@@ -484,7 +484,7 @@ circle {
 }
 
 .ai-send-btn:hover {
-    transform: scale(1.2); 
+    transform: scale(1.2);
 }
 
 
@@ -492,11 +492,11 @@ circle {
 .ai-sidebar {
     position: fixed;
     top: 0;
-    right: -350px; 
+    right: -350px;
     width: 320px;
     height: 100%;
     background-color: #ffffff;
-    transition: all 0.4s ease; 
+    transition: all 0.4s ease;
     z-index: 1000;
     padding: 20px;
     display: flex;
@@ -504,7 +504,7 @@ circle {
 }
 
 .ai-sidebar.active {
-    right: 0; 
+    right: 0;
 }
 
 .ai-sidebar-header {
@@ -525,7 +525,7 @@ circle {
 }
 
 .ai-sidebar-header h2 i {
-    color: #28a745; 
+    color: #28a745;
 }
 
 /* 4. Bağlama düyməsi */
@@ -539,11 +539,12 @@ circle {
 }
 
 .closeAiBtn:hover {
-    color: #28a745; /* Üstünə gələndə qırmızı olur */
+    color: #28a745;
+    /* Üstünə gələndə qırmızı olur */
 }
 
 .aiList {
-    overflow-y: auto; 
+    overflow-y: auto;
     flex-grow: 1;
 }
 
@@ -561,9 +562,12 @@ circle {
 }
 
 .ai-item:hover {
-    background-color: #f0fff4; /* Çox açıq yaşıl fon */
-    border-color: #28a745; /* Yaşıl çərçivə */
-    transform: translateY(3px); /* Sola doğru bir az sürüşür */
+    background-color: #f0fff4;
+    /* Çox açıq yaşıl fon */
+    border-color: #28a745;
+    /* Yaşıl çərçivə */
+    transform: translateY(3px);
+    /* Sola doğru bir az sürüşür */
 }
 
 .ai-item img {
@@ -576,4 +580,158 @@ circle {
 .ai-item span {
     font-weight: 500;
     color: #444;
+}
+
+/* ============================================================
+   FINAL RESPONSIVE RE-DESIGN (No Spagetti Code)
+   ============================================================ */
+
+/* 1. TABLET (768px - 1023px) */
+@media (max-width: 1023px) {
+    .navbar {
+        padding: 15px 25px;
+    }
+
+    .country-sidebar,
+    .fav-sidebar,
+    .ai-sidebar {
+        width: 320px;
+    }
+
+    .map-shifted {
+        margin-left: 320px;
+        width: calc(100% - 320px);
+    }
+}
+
+@media (max-width: 767px) {
+
+    .navbar {
+        position: relative !important;
+        height: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo {
+        font-size: 22px;
+        margin: 0;
+    }
+
+    .links {
+        display: flex !important;
+        position: static !important;
+        width: 100%;
+        justify-content: center;
+        gap: 15px;
+        padding: 10px 0;
+        border-top: 1px solid #eee;
+    }
+
+
+
+    .header {
+        height: auto;
+        padding: 80px 15px 40px;
+    }
+
+    .header-content h1 {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .search-box {
+        width: 100%;
+        max-width: 100%;
+        padding: 5px;
+    }
+
+    .search-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+
+    .ai-search-container {
+        padding: 10px;
+    }
+
+    .ai-input-wrapper {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center;
+        border-radius: 25px;
+        padding: 2px 10px;
+    }
+
+    .ai-input {
+        flex: 1;
+        font-size: 14px;
+    }
+
+    .ai-send-btn {
+        display: flex !important;
+        min-width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Sidebar-ların Mobil Forması */
+    .country-sidebar,
+    .ai-sidebar,
+    .fav-sidebar {
+        width: 100% !important;
+        left: -100% !important;
+        /* Aşağıdakı menyuya yer saxlayırıq */
+        z-index: 2001;
+    }
+
+    .fav-sidebar {
+        right: -100% !important;
+        left: auto !important;
+    }
+
+    .ai-sidebar.active,
+    .country-sidebar.active {
+        left: 0 !important;
+    }
+
+    .fav-sidebar.active {
+        right: 0 !important;
+    }
+
+    .map-container {
+        padding: 10px 5px;
+        margin-top: 10px;
+    }
+
+    .map-shifted {
+        margin-left: 0 !important;
+        width: 100% !important;
+        opacity: 0.2;
+    }
+
+    body {
+        padding-bottom: 70px;
+    }
+
+    .footer {
+        padding: 20px;
+        font-size: 12px;
+    }
+
+
+
+    .footer {
+        display: flex;
+        padding: 0;
+        font-size: 12px !important;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+   
 }

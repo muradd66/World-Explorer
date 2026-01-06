@@ -169,7 +169,7 @@ closeBtn.addEventListener("click", () => {
     mapContainer.classList.remove('map-shifted');
     footer.classList.remove('map-shifted');
     header.classList.remove("map-shifted")
-    countryInput.value=""
+    countryInput.value = ""
 });
 
 // Axtarış funksiyası
@@ -201,7 +201,10 @@ function showSidebar(country) {
     //object.keys-melumatin ne olduquna baxmr gedb 0-ci indexdeki melumati getirir
     if (country.currencies) {
         const curKey = Object.keys(country.currencies)[0];
-        const { name: curName, symbol: curSymbol } = country.currencies[curKey];
+        const currency = country.currencies[curKey];
+        const curName = currency.name;
+        const curSymbol = currency.symbol;
+
         currencyText.textContent = `${curName} (${curSymbol})`;
     }
 
@@ -298,15 +301,23 @@ searchBtn.addEventListener('click', searchCountry);
 let openFavSidebar = document.querySelector(".openFavSidebar");
 let closeFavBtn = document.querySelector(".closeFavBtn");
 let favSidebar = document.querySelector(".fav-sidebar");
+let mainPage = document.querySelector(".mainPage")
 
 openFavSidebar.addEventListener("click", (e) => {
     e.preventDefault();
+
+
+
     favSidebar.classList.add("active");
+    mainPage.classList.remove("active")
+
 });
 
 closeFavBtn.addEventListener("click", () => {
     favSidebar.classList.remove("active");
 });
+
+
 
 document.addEventListener("click", (e) => {
     if (favSidebar.contains(e.target)) return;
@@ -314,6 +325,7 @@ document.addEventListener("click", (e) => {
     if (openFavSidebar.contains(e.target)) return;
 
     favSidebar.classList.remove("active");
+    mainPage.classList.add("active")
 });
 
 
@@ -548,5 +560,19 @@ function renderAi(list) {
 
 closeAiBtn.addEventListener("click", () => {
     aiSidebar.classList.remove("active");
-    aiInput.value=""
+    aiInput.value = ""
 });
+
+
+// function replaceaisearch() {
+//     const aiSahəsi = document.querySelector('.ai-search-container');
+//     const xəritə = document.querySelector('.map-container');
+
+//     if (window.innerWidth <= 767) {
+//         // AI sahəsini xəritənin tam sonuna əlavə edirik
+//         xəritə.append(aiSahəsi);
+//     }
+// }
+
+// window.addEventListener('load', replaceaisearch);
+// window.addEventListener('resize', replaceaisearch);
