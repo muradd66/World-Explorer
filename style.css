@@ -955,7 +955,6 @@ body.dark .window-content input {
     display: none;
 }
 
-/* Ana qutu */
 .ai-status-wrapper {
     display: flex;
     flex-direction: column;
@@ -968,13 +967,12 @@ body.dark .window-content input {
     text-align: center;
 }
 
-/* Nida işarəsi olan dairə */
 .status-icon {
     width: 50px;
     height: 50px;
-    background: rgba(239, 68, 68, 0.1); /* Çox açıq qırmızı fon */
-    color: #ef4444; /* Qırmızı nida */
-    border-radius: 50%; /* Tam dairə edir */
+    background: rgba(239, 68, 68, 0.1); 
+    color: #ef4444; 
+    border-radius: 50%; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -983,14 +981,12 @@ body.dark .window-content input {
     margin-bottom: 15px;
 }
 
-/* Başlıq */
 .ai-status-wrapper h3 {
     font-size: 20px;
     color: #ef4444;
     margin-bottom: 10px;
 }
 
-/* Alt mətn */
 .ai-status-wrapper p {
     font-size: 14px;
     color: #94a3b8;
