@@ -81,7 +81,6 @@ body {
     background: white;
     padding: 8px;
     border-radius: 50px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -488,7 +487,6 @@ circle {
 }
 
 
-/* 1. Sidebar-ın əsas qutusu */
 .ai-sidebar {
     position: fixed;
     top: 0;
@@ -517,7 +515,7 @@ circle {
 }
 
 .ai-sidebar-header h2 {
-    font-size: 1.2rem;
+    font-size: 18px;
     color: #333;
     display: flex;
     align-items: center;
@@ -528,11 +526,10 @@ circle {
     color: #28a745;
 }
 
-/* 4. Bağlama düyməsi */
 .closeAiBtn {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 24px;
     cursor: pointer;
     color: #888;
     transition: 0.3s;
@@ -540,7 +537,6 @@ circle {
 
 .closeAiBtn:hover {
     color: #28a745;
-    /* Üstünə gələndə qırmızı olur */
 }
 
 .aiList {
@@ -563,18 +559,14 @@ circle {
 
 .ai-item:hover {
     background-color: #f0fff4;
-    /* Çox açıq yaşıl fon */
     border-color: #28a745;
-    /* Yaşıl çərçivə */
     transform: translateY(3px);
-    /* Sola doğru bir az sürüşür */
 }
 
 .ai-item img {
     width: 32px;
     height: auto;
     border-radius: 3px;
-    /* box-shadow: 0 2px 4px rgba(0,0,0,0.1); */
 }
 
 .ai-item span {
@@ -586,16 +578,12 @@ circle {
 .theme-btn {
     position: fixed;
     bottom: 20px;
-    /* Aşağıdan məsafə */
     left: 20px;
-    /* Soldan məsafə */
     z-index: 1000;
-    /* Həmişə ən üstdə olsun */
 
     width: 45px;
     height: 45px;
     background-color: #28a745;
-    /* Sənin əsas yaşıl rəngin */
     color: white;
     border: none;
     border-radius: 50%;
@@ -603,13 +591,12 @@ circle {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 20px;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .theme-btn:hover {
     transform: scale(1.1);
-    /* Üstünə gələndə azca böyüsün [cite: 2025-12-18] */
 }
 
 .theme-btn:active {
@@ -627,9 +614,8 @@ circle {
 
 
 
-/* ============================================================
-   FINAL RESPONSIVE 
-   ============================================================ */
+
+  /* FINAL RESPONSIVE */
 
 
 @media (max-width: 1023px) {
@@ -724,13 +710,11 @@ circle {
         justify-content: center;
     }
 
-    /* Sidebar-ların Mobil Forması */
     .country-sidebar,
     .ai-sidebar,
     .fav-sidebar {
         width: 100% !important;
         left: -100% !important;
-        /* Aşağıdakı menyuya yer saxlayırıq */
         z-index: 2001;
     }
 
@@ -772,35 +756,12 @@ circle {
 
     .footer {
         display: flex;
-        padding: 0;
-        font-size: 12px !important;
         justify-content: center;
         align-items: center;
         margin-top: 20px;
     }
 
 }
-
-.ai-status-wrapper {
-    text-align: center;
-    padding: 50px 20px;
-}
-
-.ai-status-wrapper h3 {
-    margin-bottom: 8px;
-    font-size: 1.1rem;
-}
-
-.ai-status-wrapper p {
-    color: #888;
-    font-size: 0.9rem;
-}
-
-/* Dark Mode üçün */
-body.dark .ai-status-wrapper p {
-    color: #aaa;
-}
-
 
 
 body .bi-trash {
@@ -809,13 +770,11 @@ body .bi-trash {
     transition: 0.4s
 }
 
-/* --- NORMAL (LIGHT) MODE --- */
 
 body .weather-box {
     background-color: white;
     color: black;
     transition: 0.4s;
-    /* Səlis keçid */
 }
 
 .navbar {
@@ -836,15 +795,12 @@ input {
 }
 
 
-/* --- DARK MODE (Body-də .dark olanda aktiv olur) --- */
 
-/* 1. Ana fon və yazı */
 body.dark {
     background-color: #121212 !important;
     color: white !important;
 }
 
-/* 2. Bütün Sidebarlar və Navbar */
 body.dark .navbar,
 body.dark .ai-sidebar,
 body.dark .fav-sidebar,
@@ -852,7 +808,8 @@ body.dark .country-sidebar,
 body.dark .sidebar-header,
 body.dark .fav-sidebar-header,
 body.dark .ai-sidebar-header,
-body.dark .weather-box {
+body.dark .weather-box,
+body.dark .ai-item {
     background-color: #1e1e1e !important;
     color: white !important;
     border-color: #333 !important;
@@ -860,22 +817,27 @@ body.dark .weather-box {
 
 body.dark .favhead,
 body.dark .country-name,
-body.dark .aiHead {
+body.dark .aiHead,
+body.dark .favName,
+body.dark .text-danger,
+body.dark .span-ai-name {
     color: white;
 }
 
-/* 3. Inputlar (Axtarış yerləri) */
+body.dark header{
+    background: linear-gradient(135deg, #0f2337 0%, #111920 100%);
 
+}
 
-/* 4. Footer */
 body.dark .footer,
 body.dark .favList,
-body.dark .ai-search-container {
+body.dark .ai-search-container,
+body.dark .favItem,
+body.dark .text-danger {
     background-color: #1a1a1a !important;
     border-top: 1px solid #333;
 }
 
-/* 5. İkonlara sadə parıltı */
 body.dark .bi-globe-americas,
 body.dark .links,
 body.dark .fav-bi,

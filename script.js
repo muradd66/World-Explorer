@@ -441,9 +441,7 @@ let aiInput = document.querySelector(".ai-input")
 aiBtn.addEventListener("click", () => {
     aisearchcontainer.classList.toggle("hidden")
 
-    if (!aisearchcontainer.classList.contains("hidden")) {
-        aiInput.focus()
-    }
+
 });
 
 
@@ -494,15 +492,15 @@ function getAi(userText) {
         .then(response => response.json())
         .then(data => {
             let aiText = data.choices[0].message.content;
-            console.log("AI-dan gələn xam mətn:", aiText);
+            // console.log("AI-dan gələn xam mətn:", aiText);
 
 
             let countryList = aiText.split(",")
                 .map(item => {
                     let cleanItem = item.trim();
-                    // Modern və daha dəqiq rəqəm təmizləmə (1., 1), 2. və s. üçün)
-                    cleanItem = cleanItem.replace(/^\d+[\.\)]\s*/, "");
-                    return cleanItem;
+                    // \w- nöqtə mötərizə veya boşluq) tapir ve silir
+                    cleanItem = cleanItem.replace(/^[0-9\W]+/, "");
+                     return cleanItem;
                 })
                 .filter(item => {
                     const parts = item.split(":");
@@ -511,7 +509,6 @@ function getAi(userText) {
                     const name = parts[0].trim();
                     const code = parts[1].trim();
 
-                    // Şəkildəki problemi həll edən əsas hissə: 
                     // Başlıqları və yanlış ISO kodlarını (CountryName, ISO2, və s.) ləğv edirik
                     const isHeader = name.toLowerCase().includes("countryname") || name.toLowerCase().includes("iso2");
 
@@ -572,6 +569,7 @@ function renderAi(list) {
         newImg.src = `https://flagsapi.com/${partCode.trim().toUpperCase()}/flat/32.png`
 
         let newSpan = document.createElement("span")
+        newSpan.className = "span-ai-name"
         newSpan.innerText = partName.trim()
 
         newDiv.append(newImg, newSpan)
@@ -615,7 +613,7 @@ if (savedTheme === "dark") {
 themeBtn.addEventListener("click", () => {
     // Body-yə 'dark' klasını əlavə edirik (varsa silirik)
     document.body.classList.toggle("dark");
-    
+
     const isDark = document.body.classList.contains("dark");
 
     // 4. Seçimi yaddaşa yazırıq
