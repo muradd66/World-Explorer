@@ -45,8 +45,8 @@ countryObject.addEventListener("load", () => {
             let found = allCountries.find(country => {
                 let commonName = country.name.common.toLowerCase();
                 let official = country.name.official.toLowerCase();
-                let c2 = country.cca2.toLowerCase(); 
-                let c3 = country.cca3.toLowerCase(); 
+                let c2 = country.cca2.toLowerCase();
+                let c3 = country.cca3.toLowerCase();
 
                 if (clickedCountry === "united states" || clickedCountry === "us" || clickedCountry === "usa") {
                     return c2 === "us";
@@ -203,7 +203,7 @@ function showSidebar(country) {
     flagImg.src = country.flags.png;
     flagImg.style.display = "block";
 
-    
+
     let weatherBox = document.querySelector('.weather-box');
     if (!weatherBox) {
         weatherBox = document.createElement('div');
@@ -212,8 +212,8 @@ function showSidebar(country) {
     }
 
     if (country.capitalInfo?.latlng) {
-        let lat = country.capitalInfo.latlng[0]; 
-        let lng = country.capitalInfo.latlng[1];    
+        let lat = country.capitalInfo.latlng[0];
+        let lng = country.capitalInfo.latlng[1];
         weatherBox.textContent = "☁️ Hava məlumatı yüklənir...";
 
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`)
@@ -521,13 +521,17 @@ function renderAi(list) {
         const statusWrapper = document.createElement("div");
         statusWrapper.classList.add("ai-status-wrapper");
 
+        const errorIcon = document.createElement("div");
+        errorIcon.classList.add("status-icon");
+        errorIcon.textContent = "!";
+
         const title = document.createElement("h3");
         title.innerText = "Təəssüf, nəticə tapılmadı";
 
         const description = document.createElement("p");
         description.innerText = "Daha ətraflı yazmağa çalışın.";
 
-        statusWrapper.append(title, description);
+        statusWrapper.append(errorIcon, title, description);
         aiList.append(statusWrapper);
         return;
     }

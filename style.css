@@ -600,7 +600,7 @@ circle {
 
 .theme-btn:active {
     transform: scale(0.9);
-    
+
 }
 
 
@@ -617,7 +617,7 @@ circle {
         font-size: 34px;
         line-height: 1.4;
     }
-   
+
 
     .country-sidebar,
     .fav-sidebar,
@@ -854,14 +854,14 @@ body.dark .side-robot {
 
 
 .loginWindow {
-    display: none; 
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px); 
+    backdrop-filter: blur(8px);
     z-index: 9999;
     align-items: center;
     justify-content: center;
@@ -899,7 +899,7 @@ body.dark .window-content {
 
 .loginClose-btn:hover {
     opacity: 1;
-    color: #27ae60; 
+    color: #27ae60;
 }
 
 .window-content h2 {
@@ -925,7 +925,7 @@ body.dark .window-content input {
 }
 
 .window-content input:focus {
-    border-color: #28a745; 
+    border-color: #28a745;
     box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
 }
 
@@ -951,6 +951,49 @@ body.dark .window-content input {
     transform: scale(0.98);
 }
 
-.bi-person-check-fill{
+.bi-person-check-fill {
     display: none;
+}
+
+/* Ana qutu */
+.ai-status-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    margin: 20px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(150, 150, 150, 0.3);
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* Nida işarəsi olan dairə */
+.status-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(239, 68, 68, 0.1); /* Çox açıq qırmızı fon */
+    color: #ef4444; /* Qırmızı nida */
+    border-radius: 50%; /* Tam dairə edir */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Başlıq */
+.ai-status-wrapper h3 {
+    font-size: 20px;
+    color: #ef4444;
+    margin-bottom: 10px;
+}
+
+/* Alt mətn */
+.ai-status-wrapper p {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 20px;
+    margin: 0;
 }
