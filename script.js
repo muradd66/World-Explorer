@@ -21,7 +21,8 @@ let favList = document.querySelector(".favList")
 let header = document.querySelector(".header")
 
 let allCountries = [];
-let favorites = [];
+let favorites = JSON.parse(localStorage.getItem("myFav")) || []
+
 let selectedCountry = null;
 
 fetch("https://raw.githubusercontent.com/mledoze/countries/master/countries.json")
@@ -328,8 +329,23 @@ countryObject.addEventListener("load", () => {
 
 
 
+function checkLogin() {
+    if (localStorage.getItem("currentUser")) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+addfavorite()
+
 
 function addfavorite() {
+
+    localStorage.setItem("myFav", JSON.stringify(favorites))
+
+
     favList.innerHTML = ""
     if (favorites.length === 0) {
         const emptyMsg = document.createElement("p");
@@ -381,6 +397,11 @@ function addfavorite() {
 
 
 favBtn.addEventListener("click", () => {
+
+    if (!checkLogin()) {
+        alert("Favorit əlavə etmək üçün zəhmət olmasa giriş edin!")
+        return
+    }
 
     if (!selectedCountry) {
         return;
