@@ -15,16 +15,15 @@ const footer = document.querySelector('.footer');
 const countryInput = document.querySelector('.input-country');
 const errorMsg = document.querySelector('.error');
 const searchBtn = document.querySelector('.search-btn');
+
 let favBtn = document.querySelector('.fav-button');
 let favList = document.querySelector(".favList")
 let header = document.querySelector(".header")
-
 
 let allCountries = [];
 let favorites = [];
 let selectedCountry = null;
 
-// 2. Ölkə siyahısını (kodları tapmaq üçün) yükləyirik
 fetch("https://raw.githubusercontent.com/mledoze/countries/master/countries.json")
     .then(res => res.json())
     .then(data => {
@@ -46,8 +45,8 @@ countryObject.addEventListener("load", () => {
             let found = allCountries.find(country => {
                 let commonName = country.name.common.toLowerCase();
                 let official = country.name.official.toLowerCase();
-                let c2 = country.cca2.toLowerCase(); // Məsələn: "us"
-                let c3 = country.cca3.toLowerCase(); // Məsələn: "usa"
+                let c2 = country.cca2.toLowerCase(); 
+                let c3 = country.cca3.toLowerCase(); 
 
                 if (clickedCountry === "united states" || clickedCountry === "us" || clickedCountry === "usa") {
                     return c2 === "us";
@@ -67,7 +66,6 @@ countryObject.addEventListener("load", () => {
             });
 
             if (found != null) {
-                //2ci api Bayraq məlumatları
                 fetch(`https://restcountries.com/v3.1/alpha/${found.cca2}`)
                     .then(res => res.json())
                     .then(apiData => {
@@ -82,7 +80,6 @@ countryObject.addEventListener("load", () => {
                         areaText.textContent = country.area ? country.area.toLocaleString() + " km²" : "N/A";
                         populationText.textContent = country.population ? country.population.toLocaleString() : "N/A";
 
-                        // Valyuta
                         if (country.currencies) {
                             let curKey = Object.keys(country.currencies)[0];
 
@@ -92,7 +89,6 @@ countryObject.addEventListener("load", () => {
 
                         }
 
-                        // Bayraq
                         flagImg.src = country.flags.png;
                         flagImg.style.display = "block";
 
@@ -109,7 +105,6 @@ countryObject.addEventListener("load", () => {
 
                             weatherBox.textContent = "☁️ Hava məlumatı yüklənir, zəhmət olmasa gözləyin...";
 
-                            //3-cü api hava məlumatları
 
                             fetch(`https://api.open-meteo.com/v1/forecast?latitude=${enlik}&longitude=${uzunluq}&current_weather=true`)
                                 .then(res => res.json())
@@ -173,12 +168,10 @@ closeBtn.addEventListener("click", () => {
     countryInput.value = ""
 });
 
-// Axtarış funksiyası
 
 
 
 function showSidebar(country) {
-    //favorite bolmesi ucun
     selectedCountry = country
     updateIcon(country)
 
@@ -198,8 +191,6 @@ function showSidebar(country) {
     areaText.textContent = country.area ? `${country.area.toLocaleString()} km²` : "N/A";
     populationText.textContent = country.population ? country.population.toLocaleString() : "N/A";
 
-    // 2. Valyuta hissəsi 
-    //object.keys-melumatin ne olduquna baxmr gedb 0-ci indexdeki melumati getirir
     if (country.currencies) {
         const curKey = Object.keys(country.currencies)[0];
         const currency = country.currencies[curKey];
@@ -209,11 +200,10 @@ function showSidebar(country) {
         currencyText.textContent = `${curName} (${curSymbol})`;
     }
 
-    // 3. Bayraq
     flagImg.src = country.flags.png;
     flagImg.style.display = "block";
 
-    // 4. Hava durumu  
+    
     let weatherBox = document.querySelector('.weather-box');
     if (!weatherBox) {
         weatherBox = document.createElement('div');
@@ -222,8 +212,8 @@ function showSidebar(country) {
     }
 
     if (country.capitalInfo?.latlng) {
-        let lat = country.capitalInfo.latlng[0]; // Birinci element (Enlik)
-        let lng = country.capitalInfo.latlng[1]; // İkinci element (Uzunluq)       
+        let lat = country.capitalInfo.latlng[0]; 
+        let lng = country.capitalInfo.latlng[1];    
         weatherBox.textContent = "☁️ Hava məlumatı yüklənir...";
 
         fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`)
@@ -259,7 +249,6 @@ function searchCountry() {
         return;
     }
 
-    // Ən az 3 hərf olanda API-ya müraciət edirik
     if (inputText.length >= 3) {
         fetch(`https://restcountries.com/v3.1/name/${inputText}`)
             .then(res => {
@@ -295,7 +284,6 @@ searchBtn.addEventListener('click', searchCountry);
 
 
 
-// favorit sidebar
 
 
 
@@ -366,7 +354,6 @@ function addfavorite() {
         deleteBtn.className = "bi bi-trash text-danger"
         deleteBtn.style.cursor = "pointer"
 
-        //deletebtndan basqa hara click edecekse olke sidebari acilir
         favItem.addEventListener("click", (e) => {
             if (e.target !== deleteBtn) {
                 showSidebar(favCountry);
@@ -376,7 +363,6 @@ function addfavorite() {
             e.stopPropagation()
             favorites = favorites.filter(c => c.name.common !== favCountry.name.common);
 
-            // Əgər sildiyimiz ölkə hal-hazırda ekrandadırsa, ürəyi boşalt
             if (selectedCountry && selectedCountry.name.common === favCountry.name.common) {
                 let favIcon = favBtn.querySelector("i");
                 favIcon.className = "bi bi-heart";
@@ -493,13 +479,11 @@ function getAi(userText) {
         .then(response => response.json())
         .then(data => {
             let aiText = data.choices[0].message.content;
-            // console.log("AI-dan gələn xam mətn:", aiText);
 
 
             let countryList = aiText.split(",")
                 .map(item => {
                     let cleanItem = item.trim();
-                    // \w- nöqtə mötərizə veya boşluq) tapir ve silir
                     cleanItem = cleanItem.replace(/^[0-9\W]+/, "");
                     return cleanItem;
                 })
@@ -510,7 +494,6 @@ function getAi(userText) {
                     const name = parts[0].trim();
                     const code = parts[1].trim();
 
-                    // Başlıqları və yanlış ISO kodlarını (CountryName, ISO2, və s.) ləğv edirik
                     const isHeader = name.toLowerCase().includes("countryname") || name.toLowerCase().includes("iso2");
 
                     return !isHeader && code.length === 2;
@@ -523,13 +506,6 @@ function getAi(userText) {
             console.log("Error:", error);
         });
 }
-
-
-
-
-
-
-
 
 
 
@@ -595,32 +571,25 @@ closeAiBtn.addEventListener("click", () => {
 
 
 
-// 1. Düyməni və ikonunu sənin verdiyin klaslara görə seçirik
 const themeBtn = document.querySelector(".theme-btn.toggle");
 const themeIcon = document.querySelector(".theme-icon");
 
-// 2. Səhifə yüklənəndə yaddaşı (localStorage) yoxlayırıq
 const savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "dark") {
     document.body.classList.add("dark");
-    // İkonu günəş (sun) ilə əvəzləyirik
     if (themeIcon) {
         themeIcon.classList.replace("bi-moon-stars", "bi-sun-fill");
     }
 }
 
-// 3. Düyməyə basanda rejimi dəyişirik
 themeBtn.addEventListener("click", () => {
-    // Body-yə 'dark' klasını əlavə edirik (varsa silirik)
     document.body.classList.toggle("dark");
 
     const isDark = document.body.classList.contains("dark");
 
-    // 4. Seçimi yaddaşa yazırıq
     localStorage.setItem("theme", isDark ? "dark" : "light");
 
-    // 5. İkonun görünüşünü dəyişirik
     if (isDark) {
         themeIcon.classList.replace("bi-moon-stars", "bi-sun-fill");
     } else {
@@ -630,11 +599,6 @@ themeBtn.addEventListener("click", () => {
 
 
 
-
-
-
-
-//Login
 
 const loginWindow = document.querySelector(".loginWindow");
 const loginBtn = document.querySelector(".log-in-btn");
