@@ -1,3 +1,4 @@
+
 const sidebar = document.querySelector('.country-sidebar');
 const countryObject = document.querySelector('object');
 const mapContainer = document.querySelector('.map-container');
@@ -500,7 +501,7 @@ function getAi(userText) {
                     let cleanItem = item.trim();
                     // \w- nöqtə mötərizə veya boşluq) tapir ve silir
                     cleanItem = cleanItem.replace(/^[0-9\W]+/, "");
-                     return cleanItem;
+                    return cleanItem;
                 })
                 .filter(item => {
                     const parts = item.split(":");
@@ -626,3 +627,86 @@ themeBtn.addEventListener("click", () => {
         themeIcon.classList.replace("bi-sun-fill", "bi-moon-stars");
     }
 });
+
+
+
+
+
+
+
+//Login
+
+const loginWindow = document.querySelector(".loginWindow");
+const loginBtn = document.querySelector(".log-in-btn");
+const loginCloseBtn = document.querySelector(".loginClose-btn");
+const submitLogin = document.querySelector(".submitLogin");
+
+const userNameInput = document.querySelector(".userName");
+const userPasswdInput = document.querySelector(".userPasswd");
+
+loginBtn.addEventListener("click", () => {
+    if (localStorage.getItem("isLoggedIn") === "true") {
+
+        
+        localStorage.clear();
+        updateLogin();
+        alert("Çıxış edildi.");
+    } else {
+        loginWindow.classList.add("active");
+    }
+});
+
+loginCloseBtn.addEventListener("click", () => {
+    loginWindow.classList.remove("active");
+});
+
+submitLogin.addEventListener("click", () => {
+    const name = userNameInput.value.trim();
+    const pass = userPasswdInput.value.trim();
+
+    if (name.length > 2 && pass.length > 3) {
+        localStorage.setItem("currentUser", name);
+        localStorage.setItem("isLoggedIn", "true");
+
+        loginWindow.classList.remove("active");
+        updateLogin();
+
+        userNameInput.value = "";
+        userPasswdInput.value = "";
+    } else {
+        alert("Zəhmət olmasa ad və şifrəni düzgün daxil edin!");
+    }
+});
+
+
+
+
+
+function updateLogin() {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const userSpan = loginBtn.querySelector("span");
+
+    const normalIcon = loginBtn.querySelector(".normal-icon");
+    const hoverIcon = loginBtn.querySelector(".hover-icon");
+    const loggedIcon = loginBtn.querySelector(".logged-icon");
+
+    if (isLoggedIn) {
+        let userName = localStorage.getItem("currentUser");
+        if (userName.length > 10) {
+            userName.slice(0, 10) + "..."
+        }
+        userSpan.innerText = userName
+
+        normalIcon.style.display = "none";
+        hoverIcon.style.display = "none";
+        loggedIcon.style.display = "inline-block";
+
+    } else {
+        userSpan.innerText = "Log in";
+        normalIcon.style.display = "inline-block";
+        hoverIcon.style.display = "none";
+        loggedIcon.style.display = "none";
+    }
+}
+
+updateLogin();

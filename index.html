@@ -25,6 +25,7 @@
                 <button class="log-in-btn"> <span> Log in</span>
                     <i class="bi bi-person-plus normal-icon"></i>
                     <i class="bi bi-person-plus-fill hover-icon"></i>
+                    <i class="bi bi-person-check-fill logged-icon"></i>
                 </button>
             </div>
         </div>
@@ -118,9 +119,19 @@
         <p>&copy; 2026 World Explorer. Bütün hüquqlar qorunur.</p>
     </footer>
 
-    <button  class="theme-btn toggle">
+    <button class="theme-btn toggle">
         <i class="bi bi-moon-stars theme-icon"></i>
     </button>
+
+    <div class="loginWindow window">
+        <div class="window-content">
+            <span class="loginClose-btn"> <i class="bi bi-x-lg"></i></span>
+            <h2>Giriş Et</h2>
+            <input type="text" class="userName" placeholder="Adınız" maxlength="12">
+            <input type="password" class="userPasswd" placeholder="Şifrəniz">
+            <button class="submitLogin">Daxil Ol</button>
+        </div>
+    </div>
 
     <script src="./script.js"> </script>
 </body>
