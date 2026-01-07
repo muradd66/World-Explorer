@@ -834,7 +834,8 @@ body.dark .footer,
 body.dark .favList,
 body.dark .ai-search-container,
 body.dark .favItem,
-body.dark .text-danger {
+body.dark .text-danger,
+body.dark .country-flag {
     background-color: #1a1a1a !important;
     border-top: 1px solid #333;
 }

@@ -647,7 +647,7 @@ const userPasswdInput = document.querySelector(".userPasswd");
 loginBtn.addEventListener("click", () => {
     if (localStorage.getItem("isLoggedIn") === "true") {
 
-        
+
         localStorage.clear();
         updateLogin();
         alert("Çıxış edildi.");
