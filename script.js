@@ -468,7 +468,7 @@ aiSendBtn.addEventListener("click", () => {
 
 
 function getAi(userText) {
-    const api_key = "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";
+    const api_key = "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";
     aiSidebar.classList.add("active")
 
     fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -499,7 +499,7 @@ function getAi(userText) {
     })
         .then(response => response.json())
         .then(data => {
-            let aiText = data.choices[0].message.content;
+            let aiText = data?.choices[0]?.message?.content;
 
 
             let countryList = aiText.split(",")
@@ -524,7 +524,7 @@ function getAi(userText) {
 
 
         .catch(error => {
-            console.log("Error:", error);
+            console.log("Error:", error)
         });
 }
 
